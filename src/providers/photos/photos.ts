@@ -1,29 +1,30 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { PhotosProvider } from '../../providers/photos/photos';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-})
-export class HomePage {
+/*
+  Generated class for the PhotosProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+@Injectable()
+export class PhotosProvider {
 
   album1: any = [];
   album2: any = [];
   album3: any = [];
 
   constructor(
-    public navCtrl: NavController,
-    public albums: PhotosProvider,
+    // public http: HttpClient,
     public http: Http
   ) {
     let url = 'https://jsonplaceholder.typicode.com/photos';
     this.http.get(url)
               .subscribe(response => {
-                // console.log(JSON.parse(response['_body']));
+                console.log(JSON.parse(response['_body']));
                 let temp = JSON.parse(response['_body']);
-                // console.log(temp[0]);
+                console.log(temp[0]);
                 for (let i = 0; i < temp.length; i++) {
                    if (temp[i]['albumId'] === 1) {
                        this.album1.push(temp[i]);
@@ -38,8 +39,8 @@ export class HomePage {
               });
   }
 
-  ngOnInit() {
-     // console.log(this.albums.getAlbum1());
+  getAlbum1(){
+    // return this.album1;
   }
 
 }
